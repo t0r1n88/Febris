@@ -93,6 +93,7 @@ def processing_report_alien():
     try:
         _wb = openpyxl.load_workbook(file_data_alien, read_only=True) #загружаем чтобы узнать названия листов
         lst_sheets = _wb.sheetnames # получаем список листов
+        _wb.close()
 
         country_df = pd.DataFrame(columns=range(10)) # создаем датафрейм в который будем добавлять данные
         all_rf_df  = pd.DataFrame(columns=range(10)) # создаем датафрейм в который будем добавлять данные по России
@@ -195,6 +196,7 @@ def processing_report_alien():
             wb[country].column_dimensions['J'].width = 20
 
         wb.save(f'{path_to_end_folder_alien}/Отчет по иностранцам от {current_time}.xlsx')
+        wb.close()
     except NameError:
         messagebox.showerror('Фебрис Обработка таблиц ver. 1.0',
                              f'Выберите файлы с данными и папку куда будет генерироваться файл')
